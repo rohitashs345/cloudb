@@ -24,12 +24,11 @@
         <div class="relative get-the-look__image-container global-border-radius">
           <div class="avoid-overlaps overflow-hidden">
             {% if section.settings.image %}
-              <div class="rimage-background featured-blog__header-image fade-in lazyload global-border-radius"
+              <div class="rimage-background featured-blog__header-image fade-in lazyloaded global-border-radius"
                   data-cc-animate="zoom-out"
-                  data-bgset="{% render 'bgset', image: section.settings.image %}"
                   data-sizes="auto"
                   data-parent-fit="cover"
-                  style="background-position: {{ section.settings.image_position }}">
+                  style="background-image:url({{ section.settings.image | img_url: '900x' }});background-position: {{ section.settings.image_position }}">
                 <noscript>
                   <img src="{{ section.settings.image | img_url: '1024x1024' }}" alt="{{ section.settings.image.alt | escape }}" class="rimage-background__image">
                 </noscript>
@@ -294,29 +293,18 @@
         "default": 70
       }
     ],
-    "templates": [
-      "404",
-      "article",
-      "blog",
-      "cart",
-      "collection",
-      "index",
-      "list-collections",
-      "page",
-      "product",
-      "search",
-      "customers/account",
-      "customers/activate_account",
-      "customers/addresses",
-      "customers/login",
-      "customers/order",
-      "customers/register",
-      "customers/reset_password"
-    ],
     "presets": [
       {
         "name": "Get the look"
       }
-    ]
+    ],
+    "disabled_on": {
+      "templates": [
+        "password"
+      ],
+      "groups": [
+        "aside"
+      ]
+    }
   }
 {% endschema %}

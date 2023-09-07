@@ -1,11 +1,5 @@
 {%- capture image_size -%}{{ section.settings.logo_width | times: 2 }}x{%- endcapture -%}
 {% style %}
-{% if section.settings.logo_SVG != blank %}
-.site-header__logo-image svg{
-  width:{{ section.settings.logo_width | append:'px'}};
-  height:auto;
-}
-{% endif %}
   .store-logo--image{
     max-width: {{ section.settings.logo_width }}px;
     width: {{ section.settings.logo_width }}px;
@@ -37,15 +31,11 @@
   <!-- LOGO -->
   <a href="{{ routes.root_url }}" itemprop="url" class="site-logo{% if section.settings.logo != blank %} site-header__logo-image{% endif %}">
     <meta itemprop="name" content="{{ shop.name }}">
-    {% if section.settings.logo_SVG != blank%}
-      {{section.settings.logo_SVG}}
-    {% else %}
-      {%- if section.settings.logo != blank -%}
-        {%- capture img_size -%}{{ section.settings.logo_width | times: 2 }}x{%- endcapture -%}
-        <img src="{{ section.settings.logo | img_url: img_size }}" alt="{{ section.settings.logo.alt | escape }}" itemprop="logo" width="{{ section.settings.logo_width | times: 2 }}" height="{{ section.settings.logo_width | times: 2 | divided_by: section.settings.logo.aspect_ratio | round }}">
-      {%- else -%}
-        {{ shop.name }}
-      {%- endif -%}
+    {%- if section.settings.logo != blank -%}
+      {%- capture img_size -%}{{ section.settings.logo_width | times: 2 }}x{%- endcapture -%}
+      <img src="{{ section.settings.logo | img_url: img_size }}" alt="{{ section.settings.logo.alt | escape }}" itemprop="logo" width="{{ section.settings.logo_width | times: 2 }}" height="{{ section.settings.logo_width | times: 2 | divided_by: section.settings.logo.aspect_ratio | round }}">
+    {%- else -%}
+      {{ shop.name }}
     {%- endif -%}
   </a>
 
@@ -245,21 +235,6 @@
                             {% endif %}
                           </div>
                           <div class="cart-summary__product__variants">
-                      
-                        <div class="line_prop">
-                      {% for p in item.properties %}
-                        {% unless p.last == blank %}
-                        {{ p.first }}:
-
-                        {% if p.last contains '/uploads/' %}
-                          <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
-                        {% else %}
-                          {{ p.last }}
-                        {% endif %}
-
-                        {% endunless %}
-                      {% endfor %}
-</div>
                             {% for option in item.product.options %}
                               {% capture value_key %}option{{ forloop.index }}{% endcapture %}
                               {% if item.variant[value_key] != 'Default Title' %}
@@ -683,11 +658,6 @@
         "type": "image_picker",
         "id": "logo",
         "label": "Image"
-      },
-      {
-        "type": "textarea",
-        "id": "logo_SVG",
-        "label": "SVG logo image code"
       },
       {
         "type": "range",

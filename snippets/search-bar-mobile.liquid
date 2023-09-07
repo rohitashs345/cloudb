@@ -6,6 +6,7 @@
 {%- if mobile_search_hidden == true -%}
   {%- assign search_hidden = true -%}
 {%- endif -%}
+{%- assign show_suggestions = true -%}
 <div class="utils__item search-bar mobile-only {% if search_hidden %} search-bar--fadein{% else %} search-bar--open{% endif %} {{ settings_class }}"
      data-live-search="{{ settings.enable_live_search }}"
      data-live-search-price="{{ settings.live_search_show_price }}"
@@ -19,7 +20,7 @@
     <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
 
     <form class="search-form" action="{{ routes.search_url }}" method="get" role="search" autocomplete="off">
-      <input type="hidden" name="type" value="{{ settings.search_type }}" />
+      <input type="hidden" name="type" value="{{ settings.search_type }}{% if show_suggestions %},query{% endif %}" />
       <input type="hidden" name="options[prefix]" value="last" />
       <label for="{{ search_id }}" class="label-hidden">
         {{ 'general.search.placeholder' | t }}

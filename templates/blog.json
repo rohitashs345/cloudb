@@ -1,1 +1,1 @@
-{"sections":{"main":{"type":"main-blog","settings":{}}},"order":["main"]}
+{"sections":{"main":{"type":"main-blog","settings":{"blog_show_rss":false,"blog_show_tags":false,"blog_show_author":false,"blog_show_date":true,"article_show_tags":true,"show_featured_products":true,"blog_magazine_layout":true,"blog_image":"shopify:\/\/shop_images\/Fichier-1-copie.png","description":"For babies and children care","color_overlay_bg":"#ffffff","overlay_opacity":1,"color_overlay_text":"#005178","overlay_position_y":70,"mobile_text_below":false}}},"order":["main"]}

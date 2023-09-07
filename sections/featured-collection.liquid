@@ -1,4 +1,3 @@
-
 {%- liquid
   assign collection = collections[section.settings.collection]
 
@@ -173,29 +172,18 @@
         "default": "2"
       }
     ],
-    "templates": [
-      "404",
-      "article",
-      "blog",
-      "cart",
-      "collection",
-      "index",
-      "list-collections",
-      "page",
-      "product",
-      "search",
-      "customers/account",
-      "customers/activate_account",
-      "customers/addresses",
-      "customers/login",
-      "customers/order",
-      "customers/register",
-      "customers/reset_password"
-    ],
     "presets": [
       {
         "name": "Featured collection"
       }
-    ]
+    ],
+    "disabled_on": {
+      "templates": [
+        "password"
+      ],
+      "groups": [
+        "aside"
+      ]
+    }
   }
 {% endschema %}

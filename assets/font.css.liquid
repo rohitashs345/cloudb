@@ -1,0 +1,19 @@
+{%- liquid
+    assign base_font = settings.type_base_font
+    assign base_font_bold = base_font | font_modify: 'weight', 'bolder'
+    assign base_font_italic = base_font | font_modify: 'style', 'italic'
+    assign base_font_bold_italic = base_font_bold | font_modify: 'style', 'italic'
+    assign logo_font = settings.type_logo_font
+    assign heading_font = settings.type_heading_font
+    assign nav_font = settings.type_nav_font
+-%}
+
+<style>
+    {{ logo_font | font_face: font_display: 'fallback' }}
+    {{ heading_font | font_face: font_display: 'fallback' }}
+    {{ base_font | font_face: font_display: 'fallback' }}
+    {{ base_font_bold | font_face: font_display: 'fallback' }}
+    {{ base_font_italic | font_face: font_display: 'fallback' }}
+    {{ base_font_bold_italic | font_face: font_display: 'fallback' }}
+    {{ nav_font | font_face: font_display: 'fallback' }}
+</style>

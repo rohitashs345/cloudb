@@ -1,4 +1,4 @@
-<div id="section-id-{{ section.id }}" class="relative large-row{% unless section.settings.full_width %} container container--no-mobile-padding{% endunless %}" data-section-type="scrolling-banner" data-cc-animate>
+<div id="section-id-{{ section.id }}" class="relative large-row{% if section.settings.full_width %} scrolling-banner--full-width{% else %} container container--no-mobile-padding{% endif %}" data-section-type="scrolling-banner" data-cc-animate>
   {% style %}
     #section-id-{{ section.id }} {
       --vertical-padding: {{ section.settings.vertical_padding }}px;
@@ -529,6 +529,11 @@
           }
         ]
       }
-    ]
+    ],
+    "disabled_on": {
+      "groups": [
+        "aside"
+      ]
+    }
   }
 {% endschema %}

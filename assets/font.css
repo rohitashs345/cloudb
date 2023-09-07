@@ -1,0 +1,65 @@
+<style>
+    @font-face {
+  font-family: Nunito;
+  font-weight: 800;
+  font-style: normal;
+  font-display: fallback;
+  src: url("https://fonts.shopifycdn.com/nunito/nunito_n8.33595ab75c4f5433a23652341234649c059173f2.woff2?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=09ce59c24a8d3a8fa247a66954d6e86cb313684f96eec7519c4823e6d5a4c835") format("woff2"),
+       url("https://fonts.shopifycdn.com/nunito/nunito_n8.3f5dca1aaff297c37f604717f462f7949b8652d6.woff?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=3a6529b6fc05bb33043925d7a18f1fc55cd01896536eb5af6ddb8ebb2a2d81f7") format("woff");
+}
+
+    @font-face {
+  font-family: Nunito;
+  font-weight: 800;
+  font-style: normal;
+  font-display: fallback;
+  src: url("https://fonts.shopifycdn.com/nunito/nunito_n8.33595ab75c4f5433a23652341234649c059173f2.woff2?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=09ce59c24a8d3a8fa247a66954d6e86cb313684f96eec7519c4823e6d5a4c835") format("woff2"),
+       url("https://fonts.shopifycdn.com/nunito/nunito_n8.3f5dca1aaff297c37f604717f462f7949b8652d6.woff?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=3a6529b6fc05bb33043925d7a18f1fc55cd01896536eb5af6ddb8ebb2a2d81f7") format("woff");
+}
+
+    @font-face {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-style: normal;
+  font-display: fallback;
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.1d581f6d4bf1a97f4cbc0b88b933bc136d38d178.woff2?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=d6545355d8bbcde96bb79cdc8a6ad0405d4e3e3c5af3ab9a6ce670093f7cab81") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n4.cfce41a967758ce5a9b7d48daeb5b028fd977a9b.woff?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=119646c522d38b6a834308fba22efdbe1b0e1e86730ce9c756171574e489ec1c") format("woff");
+}
+
+    @font-face {
+  font-family: Montserrat;
+  font-weight: 700;
+  font-style: normal;
+  font-display: fallback;
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_n7.c496e9cf2031deec4c4bca338faa81971c8631d4.woff2?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=d07b2acb78451cacf6cefb0f8d8ac4e82786ef03e2f68d9660c1cdfedc775242") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_n7.78b0223375c94b39ce1af7e09a0225f2bb3d05f7.woff?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=1c6ce4b775b282c411b56172bea4bf29fe93f1c3bfc4238e71d461b40511f98c") format("woff");
+}
+
+    @font-face {
+  font-family: Montserrat;
+  font-weight: 400;
+  font-style: italic;
+  font-display: fallback;
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_i4.ae02483b3d5e8777d0d4a4ccf396482c364d8955.woff2?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=09be23b88e35ad51b781167ec02eef37139e3b33b99d7539c2753a1ec2b92239") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_i4.ba28d1a04ec09448de486d83c63235903dfc0af8.woff?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=3f3d20e4da15adf60c89ff1124f9cb8e5512a2bce11dd22bbc31fb324f66bdf6") format("woff");
+}
+
+    @font-face {
+  font-family: Montserrat;
+  font-weight: 700;
+  font-style: italic;
+  font-display: fallback;
+  src: url("https://fonts.shopifycdn.com/montserrat/montserrat_i7.83866c3eec90071fa974c17980ffb42977f9e667.woff2?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=6df61366d9a1235786005982fdff57a4ec062248ac59bbd26950f4817bc616f1") format("woff2"),
+       url("https://fonts.shopifycdn.com/montserrat/montserrat_i7.25524241b12d864609c85325613d60efcf1a87e3.woff?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=af8b8e6baca22cf3ee2399f56e85cce096fd77938bdece442e3f1de0dc1860e0") format("woff");
+}
+
+    @font-face {
+  font-family: Nunito;
+  font-weight: 400;
+  font-style: normal;
+  font-display: fallback;
+  src: url("https://fonts.shopifycdn.com/nunito/nunito_n4.eeda324bc2f350e5c92cf5ef4a0712035386bd19.woff2?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=5569743c7e85983ca977ad819d55de5459020edcdd5f83a2df4de08d8c3a299b") format("woff2"),
+       url("https://fonts.shopifycdn.com/nunito/nunito_n4.510d96f4fbdd1b53fb60bf060c2e23e85d391444.woff?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=b64b9233d250e8be816126b10d5a46a30a527e8eed395ccd0260b3347b0d02c5") format("woff");
+}
+
+</style>

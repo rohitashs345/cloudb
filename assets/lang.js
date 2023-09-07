@@ -142,15 +142,16 @@ var sel_option5 =$(".cs-form-wrap").find('.condition-trigger option:eq(5)');
  var filevdo_input =$(".cs-form-wrap").find('.element-group #vdofile_input_id');
     
 //console.log(error_msg);
-
-
+  var Country_reseller =$(".cs-form-wrap").find('.element-group label[for="Country"]');
+  var sel_option_1 =$(".cs-form-wrap").find('#Country option:eq(0)'); 
+   var sel_option_2 =$(".cs-form-wrap").find('#Country option:eq(1)'); 
 
 if( lang=='en' ){
 //console.log('english');
   var en_title='Contact Form';
   var en_subtitle='Subject of your request';
   var en_option0='Become Reseller';
-  var en_option1='Request Product Information';
+  var en_option1='Request product information';
   var en_option2='Defective Product';
   var en_option3='Apply';
   var en_option4='Invoice Request';
@@ -190,8 +191,6 @@ if( lang=='en' ){
   var en_invoiceinput='No file chosen';
   var en_vfilespan='Choose File';
   var en_vfileinput='No file chosen';
-
-
 }
 else if( lang=='de' ){
   var en_title='Kontakt Formular';
@@ -237,7 +236,9 @@ else if( lang=='de' ){
   var en_invoiceinput='Keine Datei ausgewählt';
   var en_vfilespan='Datei wählen';
   var en_vfileinput='Keine Datei ausgewählt';
-
+  var en_Country_reseller='Zahlt';
+  var en_sel_option_1='Andere';
+  var en_sel_option_2='Frankreich';
 }
 else if( lang=='es' ){
 var en_title='Formulario de Contacto';
@@ -275,15 +276,17 @@ var en_facebook_place='Introducir URL, Example : https://facebook.com/cloudb';
 var en_mediakit='kit de medios';  
 var en_paragraph='Es necesario enviar prueba del mal funcionamiento y la factura del producto en cuestión.';  
 var en_cv='Reanudar';
-   var en_cvspan='Elija el archivo';
-  var en_cvinput='ningún archivo elegido'; 
-  var en_mediaspan='Elija el archivo';
-  var en_mediainput='ningún archivo elegido';
-  var en_invoicespan='Elija el archivo';
-  var en_invoiceinput='ningún archivo elegido';
-  var en_vfilespan='Elija el archivo';
-  var en_vfileinput='ningún archivo elegido';
-
+var en_cvspan='Elija el archivo';
+var en_cvinput='ningún archivo elegido'; 
+var en_mediaspan='Elija el archivo';
+var en_mediainput='ningún archivo elegido';
+var en_invoicespan='Elija el archivo';
+var en_invoiceinput='ningún archivo elegido';
+var en_vfilespan='Elija el archivo';
+var en_vfileinput='ningún archivo elegido';
+var en_Country_reseller='País';
+var en_sel_option_1='Otro';
+var en_sel_option_2='Francia';
 }
 
 else if( lang=='it' ){
@@ -331,14 +334,17 @@ var en_invoicespan='Scegli il file';
 var en_invoiceinput='Nessun file scelto';
 var en_vfilespan='Scegli il file';
 var en_vfileinput='Nessun file scelto';
+var en_Country_reseller='Paese';
+var en_sel_option_1='Altro';
+var en_sel_option_2='Francia';
 
 }
 
 else if( lang=='pl' ){
   var en_title='Contact Form';
   var en_subtitle='Przedmiot Twojej prośby';
-  var en_option0='Poproś o informacje o produkcie';
-  var en_option1='Zostań sprzedawcą';
+  var en_option0='Zostań sprzedawcą ';
+  var en_option1='Poproś o informacje o produkcie';
   var en_option2='Produkt z wadą';
   var en_option3='Aplikować';
   var en_option4='Żądanie faktury';
@@ -378,13 +384,17 @@ else if( lang=='pl' ){
   var en_facebook='Twoja strona na Facebooku';  
   var en_facebook_place='Wprowadź adres URL, przykład: https://facebook.com/cloudb';
   var en_mediakit='zestaw multimedialny';  
+
+var en_Country_reseller='Kraj';
+var en_sel_option_1='Inny';
+var en_sel_option_2='Francja';
 }
 
   else if( lang=='nl' ){
   var en_title='Contact Form';
   var en_subtitle='Onderwerp van je aanvraag';
-  var en_option0='Vraag productinformatie aan';
-  var en_option1='Word wederverkoper';
+  var en_option0='Wederverkoper worden';
+  var en_option1='Vraag productinformatie aan';
   var en_option2='Defect product';
   var en_option3='Toepassen';
   var en_option4='Factuur verzoek';
@@ -424,20 +434,37 @@ else if( lang=='pl' ){
   var en_facebook='Je Facebook-pagina';  
   var en_facebook_place='Voer de url in, voorbeeld: https://facebook.com/cloudb';
   var en_mediakit='mediakit';  
+
+var en_Country_reseller='Land';
+var en_sel_option_1='Ander';
+var en_sel_option_2='Frankrijk';
 }
  else if( lang=='fr' ) {
+  //   var en_title='Formulaire de contact';
+  // var en_subtitle='Sujet de votre demande';
+  //   var en_option0='Devenir revendeur';
+  //   var en_option1='Demander des informations sur le produit';
+  //   var en_option2='Produit defectueux';
+  //   var en_option3='Appliquer';
+  //   var en_option4='Demande de facturation';
+  //   var en_option5='Partenariat';
      var en_button='envoyer';
      var en_tiktok_place= "Entrez l'url - Example https://www.tiktok.com/username";
      var en_instagram_place=" Entrez l'url, Example : https://instagram.com/cloudb"; 
      var en_facebook_place="Entrez l'url, Example : https://facebook.com/cloudb"; 
      var en_email='E-mail';
      var en_emailplace='Entrez l e-mail';
+    var en_Country_reseller='Pays';
+    var en_sel_option_1='Autre';
+    var en_sel_option_2='France';
+ 
  }
+   
 else if( lang=='sv' ){
   var en_title='Contact Form';
   var en_subtitle='Ämnet för din begäran';
-  var en_option0='Begär produktinformation';
-  var en_option1='Bli återförsäljare';
+  var en_option0='Bli återförsäljare';
+  var en_option1='Begär produktinformation ';
   var en_option2='Trasig vara';
   var en_option3='Att ansöka';
   var en_option4='Faktura begäran';
@@ -476,13 +503,18 @@ else if( lang=='sv' ){
   var en_instagram_place='Ange webbadressen, Exampel: https://instagram.com/cloudb';
   var en_facebook='Din Facebook-sida';  
   var en_facebook_place='Ange URL, Exampel: https://facebook.com/cloudb';
-  var en_mediakit='mediakit';  
+  var en_mediakit='mediakit';
+  
+  var en_Country_reseller='Land';
+    var en_sel_option_1='Övrig';
+    var en_sel_option_2='Frankrike';
 }
+ 
   
   $(title).html(en_title);
   $(sub_title).html(en_subtitle);
-  $(sel_option0).text(en_option0);
-  $(sel_option1).text(en_option1);
+  $(sel_option0).text(en_option1);
+  $(sel_option1).text(en_option0);
   $(sel_option2).html(en_option2);
   $(sel_option3).html(en_option3);
   $(sel_option4).html(en_option4);
@@ -528,7 +560,10 @@ else if( lang=='sv' ){
   $(filevdo_input).attr('placeholder',en_vfileinput);
 
 
-
+  
+  $(Country_reseller).html(en_Country_reseller); 
+  $(sel_option_1).html(en_sel_option_1);
+  $(sel_option_2).html(en_sel_option_2);
 
   $('body').on('click', '.cs-form-wrap button[type="submit"]', function () {
   //console.log('error_msg');

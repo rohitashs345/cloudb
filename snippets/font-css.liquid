@@ -1,0 +1,35 @@
+<link rel="preload" href="/cdn/fonts/montserrat/montserrat_n4.1d581f6d4bf1a97f4cbc0b88b933bc136d38d178.woff2?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=d6545355d8bbcde96bb79cdc8a6ad0405d4e3e3c5af3ab9a6ce670093f7cab81" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://cdn.shopify.com/s/files/1/0656/9292/6220/files/Aristotelica-Pro-Text-Light.woff2?v=1674041279" as="font" type="font/woff2" crossorigin>
+<style>
+    @font-face {
+      font-family: Montserrat;
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+      src: url("/cdn/fonts/montserrat/montserrat_n4.1d581f6d4bf1a97f4cbc0b88b933bc136d38d178.woff2?h1=Y2xvdWRiLmNvbQ&h2=YWNjb3VudC5jbG91ZGIuY29t&hmac=d6545355d8bbcde96bb79cdc8a6ad0405d4e3e3c5af3ab9a6ce670093f7cab81") format("woff2");
+    }
+    @font-face {
+        font-family: SF-Nav-font;
+        font-style: normal;
+    	font-weight: 400;
+        font-display: swap;
+        src:url(https://cdn.shopify.com/s/files/1/0656/9292/6220/files/Aristotelica-Pro-Text-Light.woff2?v=1674041279);
+    }
+</style>
+
+{% if template contains "index" %}
+	{% render "index-font-css" %}
+{% elsif template contains "collection" %}
+	{% render "collection-font-css" %}
+{% elsif template contains "product" %}
+	{% render "product-font-css" %}
+{% else %}
+	{% render "critical-font-css" %}
+{% endif %}
+
+
+{% if template contains "cart" %}    	
+    <link href="{{ 'font.css' | asset_url }}" rel="stylesheet"/>
+    <link href="{{ 'styles.css' | asset_url }}" rel="stylesheet"/>
+    <link href="{{ 'custom.css' | asset_url }}" rel="stylesheet"/>    	
+{% endif %}

@@ -18,7 +18,7 @@
                     data-bgset="{% render 'bgset', image: section.settings.heading_image %}"
                     data-sizes="auto"
                     data-parent-fit="cover"
-                    style="background-position: {{ section.settings.image_position }}">
+                    style="background-position: {{ section.settings.heading_image.presentation.focal_point }}">
                   <noscript>
                     <img src="{{ section.settings.heading_image | img_url: '1024x1024' }}" alt="{{ section.settings.heading_image.alt | escape }}" class="rimage-background__image">
                   </noscript>
@@ -370,25 +370,6 @@
         "content": "Include links to products in your article to feature them underneath. [Learn more](https://cleancanvas.co.uk/support/boost-article-featured-products)"
       }
     ],
-    "templates": [
-      "404",
-      "article",
-      "blog",
-      "cart",
-      "collection",
-      "index",
-      "list-collections",
-      "page",
-      "product",
-      "search",
-      "customers/account",
-      "customers/activate_account",
-      "customers/addresses",
-      "customers/login",
-      "customers/order",
-      "customers/register",
-      "customers/reset_password"
-    ],
     "presets": [
       {
         "name": "Blog posts",
@@ -397,6 +378,14 @@
           "post_limit": 3
         }
       }
-    ]
+    ],
+    "disabled_on": {
+      "templates": [
+        "password"
+      ],
+      "groups": [
+        "aside"
+      ]
+    }
   }
 {% endschema %}

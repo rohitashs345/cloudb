@@ -20,12 +20,7 @@ assign custom_title_font = block.settings.custom_title_font
       assign font_type = font_type | split: '?v=' | first
     endif
   %}
-@font-face {
-  font-family: SF-Title-font_{{forloop.index}};
-  font-weight: {{- weight -}};
-  src: url({{- font_url -}});
-  font-display: swap;
-}
+
   {% endfor %}
     {%- if title_fonts != blank -%}
     :root {
@@ -149,11 +144,10 @@ assign custom_title_font = block.settings.custom_title_font
                 {{ placeholder_name | placeholder_svg_tag: 'placeholder-svg' }}
               </div>
             {% else %}
-              <div class="rimage-outer-wrapper rimage-background lazyload fade-in"
-                data-bgset="{% render 'bgset', image: block.settings.image %}"
+              <div class="rimage-outer-wrapper rimage-background lazyloaded"
                 data-sizes="auto"
                 data-parent-fit="cover"
-                style="background-position: {{ block.settings.image_position }}">
+                style="background-image:url({{ block.settings.image | img_url: '1024x1024' }});background-position: {{ block.settings.image.presentation.focal_point }}">
                 <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: aspect_ratio | times: 100 }}%">
                   <noscript>
                     <img src="{{ block.settings.image | img_url: '1024x1024' }}" alt="{{ block.settings.image.alt | escape }}" class="rimage__image">
@@ -753,6 +747,11 @@ assign custom_title_font = block.settings.custom_title_font
         {
           "type": "image"
         }
+      ]
+    },
+    "disabled_on": {
+      "groups": [
+        "aside"
       ]
     }
   }

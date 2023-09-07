@@ -80,7 +80,7 @@
 
     <div class="one-half small-down--one-whole relative image-with-text__content" data-cc-animate>
       <div class="{%- if section.settings.text_alignment == 'center' -%}center{%- endif -%}">
-        <h2 class="image-with-text__title {% if section.settings.enlarge_title %} giant-title{% else %} large-title{% endif %}">{% if section.settings.svgIconL != blank %} <span><img src="{{ section.settings.svgIconL }}"> </span>{% endif %}  {{ section.settings.title }} {% if section.settings.svgIconR != blank %} <span><img src="{{ section.settings.svgIconR }}"> </span>{% endif %}</h2>
+        <h2 class="image-with-text__title {% if section.settings.enlarge_title %} giant-title{% else %} large-title{% endif %}">{% if section.settings.svgIconL != blank %} <span><img data-class="LazyLoad" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ section.settings.svgIconL }}"> </span>{% endif %}  {{ section.settings.title }} {% if section.settings.svgIconR != blank %} <span><img data-class="LazyLoad" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ section.settings.svgIconR }}"> </span>{% endif %}</h2>
         {% if section.settings.text %}
           <div class="image-with-text__text {% if section.settings.enlarge_text %}large-text{% endif %}">{{ section.settings.text }}</div>
         {% endif %}
@@ -315,6 +315,11 @@
       {
         "name": "Image with text"
       }
-    ]
+    ],
+    "disabled_on": {
+      "groups": [
+        "aside"
+      ]
+    }
   }
 {% endschema %}

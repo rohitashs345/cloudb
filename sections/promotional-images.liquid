@@ -99,7 +99,7 @@
                      data-bgset="{% render 'bgset', image: block.settings.image %}"
                      data-sizes="auto"
                      data-parent-fit="cover"
-                     style="background-position: {{ block.settings.image_position }}">
+                     style="background-position: {{ block.settings.image.presentation.focal_point }}">
                   <noscript>
                     <img src="{{ block.settings.image | img_url: '1024x1024' }}" alt="{{ block.settings.image.alt | escape }}" class="rimage-background__image">
                   </noscript>
@@ -174,50 +174,50 @@
             "id": "image",
             "label": "Image"
           },
-          {
-            "type": "select",
-            "id": "image_position",
-            "label": "Image alignment",
-            "info": "Used to keep the subject of your image in view",
-            "default": "center center",
-            "options": [
-              {
-                "value": "top left",
-                "label": "Top left"
-              },
-              {
-                "value": "top center",
-                "label": "Top center"
-              },
-              {
-                "value": "top right",
-                "label": "Top right"
-              },
-              {
-                "value": "center left",
-                "label": "Middle left"
-              },
-              {
-                "value": "center center",
-                "label": "Middle center"
-              },
-              {
-                "value": "center right",
-                "label": "Middle right"
-              },
-              {
-                "value": "bottom left",
-                "label": "Bottom left"
-              },
-              {
-                "value": "bottom center",
-                "label": "Bottom center"
-              },
-              {
-                "value": "bottom right",
-                "label": "Bottom right"
-              }
-            ]
+          {	
+            "type": "select",	
+            "id": "image_position",	
+            "label": "Image alignment",	
+            "info": "Used to keep the subject of your image in view",	
+            "default": "center center",	
+            "options": [	
+              {	
+                "value": "top left",	
+                "label": "Top left"	
+              },	
+              {	
+                "value": "top center",	
+                "label": "Top center"	
+              },	
+              {	
+                "value": "top right",	
+                "label": "Top right"	
+              },	
+              {	
+                "value": "center left",	
+                "label": "Middle left"	
+              },	
+              {	
+                "value": "center center",	
+                "label": "Middle center"	
+              },	
+              {	
+                "value": "center right",	
+                "label": "Middle right"	
+              },	
+              {	
+                "value": "bottom left",	
+                "label": "Bottom left"	
+              },	
+              {	
+                "value": "bottom center",	
+                "label": "Bottom center"	
+              },	
+              {	
+                "value": "bottom right",	
+                "label": "Bottom right"	
+              }	
+            ]	
           },
           {
             "type": "url",
@@ -334,6 +334,11 @@
           }
         ]
       }
-    ]
+    ],
+    "disabled_on": {
+      "groups": [
+        "aside"
+      ]
+    }
   }
 {% endschema %}

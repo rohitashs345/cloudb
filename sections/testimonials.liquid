@@ -50,7 +50,8 @@
                 <div class="testimonial-author-image lazyload rimage-background global-border-radius"
                      data-bgset="{% render 'bgset', image: block.settings.image %}"
                      data-sizes="auto"
-                     data-parent-fit="cover">
+                     data-parent-fit="cover"
+                     style="background-position: {{ block.settings.image.presentation.focal_point }}">
                 </div>
               {%- endif -%}
               {%- if block.settings.author != blank -%}
@@ -187,7 +188,12 @@
           }
         ]
       }
-    ]
+    ],
+    "disabled_on": {
+      "groups": [
+        "aside"
+      ]
+    }
   }
 
 {% endschema %}

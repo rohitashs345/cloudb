@@ -1,7 +1,7 @@
 {%- assign lowest_variant = product.variants | sort: 'price' | first -%}
 <div data-section-id="{{ section.id }}" data-section-type="recently-viewed">
   {% if section.settings.show_recently_viewed %}
-    <div class="recently-viewed container row hidden"
+    <div class="recently-viewed container large-row hidden"
         data-handle="{{ product.handle }}"
         data-url="{{ product.url }}"
         data-title="{{ product.title | escape }}"

@@ -1,4 +1,4 @@
-<div class="reputon-amazon-reviews-widget" id="97e718b0-9033-11ed-bbad-57d3cce934bf" data-product-reviews="true">{% assign productId = product.id | append: "" %}{% if productId != "" %}  <script>window.reputonAmazonProductReviewsData = {{ product.metafields['ReputonAmazonReviews::ProductReviews'][productId] }};</script>{% else %}  <script>window.reputonAmazonProductReviewsData = null;</script>{% endif %}</div><footer class="page-footer {% if section.settings.sticky_footer %}page-footer--with-sticky-footer{% endif %}" data-section-id="{{ section.id }}" data-section-type="footer">
+<footer class="page-footer {% if section.settings.sticky_footer %}page-footer--with-sticky-footer{% endif %}" data-section-id="{{ section.id }}" data-section-type="footer">
   <div class="page-footer__inner {% if section.settings.sticky_footer %}sticky-footer{% endif %}">
     <div class="container">
       <div class="page-width">
@@ -102,7 +102,7 @@
 
             <small class="copyright-text">
               {{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }} <a href="{{ routes.root_url }}">{{ shop.name }}</a>.
-             
+              {% comment %}{{ powered_by_link }}{% endcomment %}
             </small>
           </div>
 

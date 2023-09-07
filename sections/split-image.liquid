@@ -53,7 +53,7 @@
                     data-bgset="{% render 'bgset', image: block.settings.image %}"
                     data-sizes="auto"
                     data-parent-fit="cover"
-                    style="background-position: {{ block.settings.image_position }}">
+                    style="background-position: {{ block.settings.image.presentation.focal_point }}">
                   <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%">
                     <noscript>
                       <img src="{{ section.settings.image | img_url: '1024x1024' }}" alt="{{ section.settings.image.alt | escape }}" class="rimage__image">
@@ -347,25 +347,6 @@
         ]
       }
     ],
-    "templates": [
-      "404",
-      "article",
-      "blog",
-      "cart",
-      "collection",
-      "index",
-      "list-collections",
-      "page",
-      "product",
-      "search",
-      "customers/account",
-      "customers/activate_account",
-      "customers/addresses",
-      "customers/login",
-      "customers/order",
-      "customers/register",
-      "customers/reset_password"
-    ],
     "presets": [
       {
         "name": "Split image",
@@ -390,6 +371,14 @@
           }
         ]
       }
-    ]
+    ],
+    "disabled_on": {
+      "templates": [
+        "password"
+      ],
+      "groups": [
+        "aside"
+      ]
+    }
   }
 {% endschema %}

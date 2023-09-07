@@ -1,0 +1,17 @@
+{% if product.metafields.osaria_sap.audio_file != blank or request.design_mode %}
+<div class="progression-{{shop.metafields.osaria_sap.size}}">
+  <div class="responsive-wrapper responsive-audio">
+    <div class="product-image-container papp-player" style="border:0px">
+      <audio
+        controls
+        class="progression-skin progression-{{ shop.metafields.osaria_sap.skin }}"
+        preload="none"
+        style="display:none"
+      >
+        <source src="{{ shop.metafields.osaria_sap.server }}/{{ shop.domain }}/{{ product.id }}/{{ product.metafields.osaria_sap.audio_file }}">
+        <source src="{{ shop.metafields.osaria_sap.server }}/{{ shop.permanent_domain }}/{{ product.id }}/{{ product.metafields.osaria_sap.audio_file }}">
+      </audio>
+    </div>
+  </div>
+</div>
+{% endif %}

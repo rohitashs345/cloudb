@@ -690,7 +690,7 @@
         return t;
         if ("master" == e)
         return this.removeProtocol(t);
-        var o = t.match(/\.(jpg|jpeg|gif|png|bmp|bitmap|tiff|webp|tif)(\?v=\d+)?$/i);
+        var o = t.match(/\.(jpg|jpeg|gif|png|bmp|bitmap|tiff|tif)(\?v=\d+)?$/i);
         if (null != o) {
           var i = t.split(o[0]),
           r = o[0];
@@ -2167,7 +2167,7 @@
           play: () => $videoElement[0].contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*'),
           pause: () => $videoElement[0].contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*'),
           stop: () => $videoElement[0].contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*'),
-          seekTo: (to) => $videoElement[0].contentWindow.postMessage("{\"event\":\"command\",\"func\":\"seekTo\",\"args\":".concat(to, "}"), '*'),
+          seekTo: (to) => $videoElement[0].contentWindow.postMessage("{\"event\":\"command\",\"func\":\"seekTo\",\"args\":[".concat(to, ",true]}"), '*'),
           videoElement: $videoElement[0],
           isBackgroundVideo: isBackgroundVideo,
           establishedYTComms: false };
@@ -2369,7 +2369,23 @@
             $container.addClass('video-container--playing');
           });
         }
-        $video.attr('src', $(this).data('video-url')).appendTo($videoElement);
+
+        if ($(this).data('video-url')) {
+          $video.attr('src', $(this).data('video-url'));
+        }
+        if ($(this).data('video-sources')) {
+          var sources = $(this).data('video-sources').split('|');
+          for (var i = 0; i < sources.length; i++) {
+            var [format, mimeType, url] = sources[i].split(' ');
+            // only use HLS if not looping
+            if (format === 'm3u8' && $(this).data('video-loop')) {
+              continue;
+            }
+            $('<source>').attr({ src: url, type: mimeType }).appendTo($video);
+          }
+        }
+        $video.appendTo($videoElement);
+
         var videoData = _.videos.videoData[containerId] = {
           type: 'mp4',
           element: $video[0],
@@ -3385,7 +3401,7 @@
         return this.removeProtocol(src);
       }
 
-      var match = src.match(/\.(jpg|jpeg|gif|png|bmp|bitmap|tiff|tif|webp)(\?v=\d+)?$/i);
+      var match = src.match(/\.(jpg|jpeg|gif|png|bmp|bitmap|tiff|tif|webp|heic)(\?v=\d+)?$/i);
 
       if (match) {
         var prefix = src.split(match[0]);
@@ -4044,17 +4060,6 @@
           productVariantsHTML += '</div>';
         }
 
-        var productPropertiesHTML = '';
-        if (itemData.properties) {
-          var propNames = itemData.properties;
-          productPropertiesHTML = '<div class="cart-summary__product__properties">';
-          $.each(propNames, function( index, value ) {
-            productPropertiesHTML += '<span class="cart-summary__properties">'+index+' : '+value +'</span> ';
-          });
-         
-          productPropertiesHTML += '</div>';
-        }
-
         var productImage;
         if (productVariant.featured_media) {
           productImage = slate.Image.getSizedImageUrl(productVariant.featured_media.preview_image.src, '200x');
@@ -4076,7 +4081,6 @@
           '<div class="cart-summary__product__description">',
           '<div class="cart-summary__product-title">', theme.productData[itemData.product_id].title, productQty, '</div>',
           productVariantsHTML,
-          productPropertiesHTML,
           productPreorderHTML,
           sellingPlanHTML,
           '<div class="cart-summary__price">', productPrice, '</div>',
@@ -4382,11 +4386,23 @@
           item.el.toggleClass('is-overlapping', item.overlaps);
         }
       });
+
+      // If the last section on the page is a full width scrolling banner, don't shift the footer up
+      var lastSectionIsFullWidthScrollingBanner =
+      document.querySelector('main .shopify-section:last-child .scrolling-banner--full-width');
+      var footerGroup = document.querySelector('.footer-group');
+      if (footerGroup && (footerGroup.childElementCount === 0 || lastSectionIsFullWidthScrollingBanner)) {
+        footerGroup.classList.remove('footer-group--shift-up');
+      }
     };
 
     var checkOverlapsResizeObserver = new ResizeObserver(theme.debounce(theme.checkOverlaps, 100));
     theme.checkOverlaps();
     $(document).on('shopify:section:load', theme.checkOverlaps);
+    $(document).on('shopify:section:unload', theme.checkOverlaps);
+    $(document).on('shopify:section:reorder', theme.checkOverlaps);
+    $(document).on('shopify:section:select', theme.checkOverlaps);
+    $(document).on('shopify:section:deselect', theme.checkOverlaps);
   });
   ;
   theme.assessLoadedRTEImage = function (el) {
@@ -5329,7 +5345,7 @@
 
           // hide results if under 3 characters entered
           var term = $form.find('input[name="q"]').val();
-          if (term.length < 3) {
+          if (term.length < 2) {
             this.functions._searchResultsHide.bind(this)($bar);
           } else {
             // fetch results
@@ -5362,7 +5378,8 @@
             "q": $searchForm.find('input[name="q"]').val(),
             "resources": {
               "type": $searchForm.find('input[name="type"]').val(),
-              "limit": 6,
+              "limit": 5,
+              "limit_scope": "each",
               "options": {
                 "unavailable_products": 'last',
                 "fields": $bar.data('live-search-meta') ? "title,product_type,variants.title,vendor,tag,variants.sku" : "title,product_type,variants.title,vendor" } } };
@@ -5394,15 +5411,17 @@
        */
       _searchResultsSuccess: function _searchResultsSuccess($bar, searchUrl, response) {
         $bar.addClass(this.search.resultsLoadedClass).removeClass(this.search.resultsLoadingClass);
-        var $results = $('<div>'),
+        var $results = $('<div class="search-results__results">'),
+        $queries = $('<div class="search-results__queries">'),
         showPrice = $bar.data('live-search-price'),
-        showVendor = $bar.data('live-search-vendor'),
-        includeMeta = $bar.data('live-search-meta');
+        showVendor = $bar.data('live-search-vendor');
+        var $moreResults = null;
 
         if (
         response.resources.results.products && response.resources.results.products.length > 0 ||
         response.resources.results.pages && response.resources.results.pages.length > 0 ||
-        response.resources.results.articles && response.resources.results.articles.length > 0)
+        response.resources.results.articles && response.resources.results.articles.length > 0 ||
+        response.resources.results.queries && response.resources.results.queries.length > 0)
         {
           if (response.resources.results.products) {
             for (var i = 0; i < response.resources.results.products.length; i++) {
@@ -5480,15 +5499,32 @@
               $result.prepend($thumb).appendTo($results);
             }
           }
+          if (response.resources.results.queries && response.resources.results.queries.length > 0) {
+            var queries = "";
+            for (var i = 0; i < response.resources.results.queries.length; i++) {
+              var query = response.resources.results.queries[i];
+              queries += "<li class=\"search-result search-result--query\"><a href=\"".concat(query.url, "\">").concat(query.styled_text, "</a></li>");
+            }
+            $queries.html(queries);
+          }
 
-          $('<a class="search-result search-result--more">').
+          $moreResults = $('<a class="search-result search-result--more">').
           attr('href', searchUrl).
-          html(this.search.moreResultsMessage).
-          appendTo($results);
+          html(this.search.moreResultsMessage);
         } else {
           $results.append('<div class="search-result search-result--empty">' + this.search.emptyMessage + '</div>');
         }
-        $bar.find(this.search.resultsSelector).html($results);
+
+        var $resultContainer = $bar.find(this.search.resultsSelector);
+        $resultContainer.html($results);
+
+        if ($moreResults) {
+          $moreResults.appendTo($resultContainer);
+        }
+
+        if (response.resources.results.queries && response.resources.results.queries.length > 0) {
+          $resultContainer.prepend($queries);
+        }
       },
 
       /**
@@ -6775,14 +6811,14 @@
             }
 
             // fetch new html for the page
+            var cartSectionId = _.$container.data('section-id');
             _.cartRefreshXhr = $.ajax({
               type: 'GET',
-              url: theme.routes.cart_url + '?sections=header,main-cart',
+              url: theme.routes.cart_url + "?sections=header,".concat(cartSectionId),
               success: function success(data) {
-                var toReplace = {
-                  'header': ['.page-header .header-cart', '.docked-navigation-container .header-cart'],
-                  'main-cart': ['[data-section-type="cart"] .cart-items', '[data-section-type="cart"] .subtotal-row'] };
-
+                var toReplace = {};
+                toReplace['header'] = ['.page-header .header-cart', '.docked-navigation-container .header-cart'];
+                toReplace[cartSectionId] = ['[data-section-type="cart"] .cart-items', '[data-section-type="cart"] .subtotal-row'];
                 Object.keys(toReplace).forEach((section) => {
                   var $newDom = $(data[section]);
                   $newDom.find('.fade-in').removeClass('fade-in');
@@ -7099,7 +7135,6 @@
 
 
     var breakpoint = 768;
-    var resizeTimer;
 
     /**
      * Gallery section constructor. Runs on page load as well as Theme Editor
@@ -7110,12 +7145,11 @@
       this.$container = $(container);
       this.namespace = theme.namespaceFromSection(container);
 
-      //Slideshow
-      $slideshow = $(selectors.slideshow, this.$container);
-
-      if ($slideshow.length) {
+      // Slideshow
+      if ($(selectors.slideshow, this.$container).length) {
         var assessCarouselFunction = function assessCarouselFunction() {
-          var isCarousel = $slideshow.hasClass('slick-slider'),
+          var $slideshow = $(selectors.slideshow, this.$container),
+          isCarousel = $slideshow.hasClass('slick-slider'),
           shouldShowCarousel = $(window).width() < breakpoint;
 
           if (!shouldShowCarousel) {
@@ -7160,8 +7194,8 @@
           }
         };
 
-        assessCarouselFunction();
-        $(window).on('debouncedresize.themeSection' + this.$container, assessCarouselFunction);
+        assessCarouselFunction.call(this);
+        $(window).on('debouncedresize' + this.namespace, assessCarouselFunction.bind(this));
       }
     };
 
@@ -7930,6 +7964,16 @@
       $(document).on('shopify:section:load', theme.resizeAccent);
     }
 
+    // Watch for play/stop video events
+    $(document).on('cc:video:play', function () {
+      if ($(window).outerWidth() < 768) {
+        $('body').addClass('video-modal-open');
+      }
+    }).on('cc:video:stop', function () {
+      if ($(window).outerWidth() < 768) {
+        $('body').removeClass('video-modal-open');
+      }
+    });
   }); // end of main $(function()
 
   theme.Sections.init();
@@ -7981,25 +8025,20 @@
 
 })(theme.jQuery);  
 
-$(window).scroll(function() {    
-  var scroll = $(window).scrollTop();
-
-  if (scroll >= 500) {
-      $("body").addClass("darkHeader");
-  } else {
-      $("body").removeClass("darkHeader");
-  }
-});
-
-
-
-$(document).ready(function () { 
-  setTimeout(function() { 
-    $('.spr-review-content-body').each(function( index ) {
-      var review = $(this).text();
-      $(this).text(review.replace('<div style="margin-top:10px; margin-bottom:20px"></div>',''));
-      });
-  }, 5000);  
+	$(window).scroll(function() {    	
+  var scroll = $(window).scrollTop();	
+  if (scroll >= 500) {	
+      $("body").addClass("darkHeader");	
+  } else {	
+      $("body").removeClass("darkHeader");	
+  }	
+});	
+$(document).ready(function () { 	
+  setTimeout(function() { 	
+    $('.spr-review-content-body').each(function( index ) {	
+      var review = $(this).text();	
+      $(this).text(review.replace('<div style="margin-top:10px; margin-bottom:20px"></div>',''));	
+      });	
+  }, 5000);  	
 }); 
-
 /* Built with Barry v1.0.8 */

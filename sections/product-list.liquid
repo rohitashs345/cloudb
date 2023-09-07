@@ -168,28 +168,18 @@
         "default": "2"
       }
     ],
-    "templates": [
-      "404",
-      "article",
-      "blog",
-      "cart",
-      "collection",
-      "index",
-      "list-collections",
-      "page",
-      "search",
-      "customers/account",
-      "customers/activate_account",
-      "customers/addresses",
-      "customers/login",
-      "customers/order",
-      "customers/register",
-      "customers/reset_password"
-    ],
     "presets": [
       {
         "name": "Product list"
       }
-    ]
+    ],
+    "disabled_on": {
+      "templates": [
+        "password"
+      ],
+      "groups": [
+        "aside"
+      ]
+    }
   }
 {% endschema %}
