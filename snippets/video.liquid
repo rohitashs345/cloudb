@@ -1,0 +1,54 @@
+{% if metafield_vid != blank %}
+    {% assign video_url = metafield_vid %}
+{% else %}
+    {% assign video_url = block.settings.video_url %}
+{% endif %}
+{% assign video_id = video_url | split: "/" | last %}
+<div id="section-id-{{ block.id }}" class="large-row container--no-mobile-padding section-{{ block.id }}" data-section-id="{{ block.id }}"  data-section-type="video">
+  {% style %}
+    .section-{{ block.id }} .video-container__play.feather-icon svg {
+      stroke: {{ block.settings.color_overlay_text }};
+    }
+
+    .section-{{ block.id }} .overlay {
+      top: {{ block.settings.overlay_position_y }}%;
+      left: {{ block.settings.overlay_position_x }}%;
+    }
+  {% endstyle %}
+
+{% capture thumb_url %}https://vumbnail.com/{{video_id}}.jpg{% endcapture %}
+
+  <div class="page-width relative mx-0 mx-xl-10">
+    {% if block.settings.video_url != blank or metafield_vid != blank %}
+      <div class="video-container product-layout-grid--small global-border-radius global-border-radius--not-extra-small video-container--image video-container--modal-mobile avoid-overlaps"
+        data-video-id="{{video_id}}"
+        data-video-url="{{video_url}}"
+        data-video-type="vimeo"
+        data-video-autoplay="false"
+        data-video-loop="true">
+        <div class="avoid-overlaps__mobile-container video-container__player">
+          <a class="video-container__stop" href="#" aria-label="{{ 'general.accessibility_labels.video_stop' | t | escape }}">{% render 'icon-close' %}</a>
+          <div class="video-container__video"></div>
+          <div class="video-container__cover">     
+            <div class="rimage-outer-wrapper rimage-background" style="background:url({{thumb_url}});background-size:cover;"></div>
+          </div>
+        </div>
+
+        {% render 'image-overlay',
+            background_color: block.settings.color_overlay_bg,
+            background_opacity: block.settings.overlay_opacity,
+            text_color: block.settings.color_overlay_text,
+            title: block.settings.overlay_title,
+            enlarge_title: block.settings.enlarge_title,
+            text: block.settings.overlay_text,
+            enlarge_text: block.settings.enlarge_text,
+            mobile_text_below: block.settings.mobile_text_below,
+            video_button: true,
+            extra_large_text: true,
+            animate: true %}
+      </div>
+    {% else %}
+      <div class="row-double-space video-section center">{{ 'homepage.onboarding.no_content' | t }}</div>
+    {% endif %}
+  </div>
+</div>
